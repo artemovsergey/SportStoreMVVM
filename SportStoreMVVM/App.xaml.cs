@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using SportStoreMVVM.Views;
 
 namespace SportStoreMVVM
 {
@@ -14,7 +15,7 @@ namespace SportStoreMVVM
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            SportStoreMVVM.MainWindow mv = new SportStoreMVVM.MainWindow();
+            MainWindow mv = new MainWindow();
 
             //MainWindowViewModel vm = new MainWindowViewModel();
             //mv.DataContext = vm;
