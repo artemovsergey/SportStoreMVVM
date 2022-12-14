@@ -3,6 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SportStoreMVVM">
     <Application.Resources>
-         
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#FF76E383" />
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#FF498C51" />
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="10"/>
+        </Style>
+
+        <Style TargetType="Window">
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Background" Value="White"/>
+        </Style>
     </Application.Resources>
 </Application>

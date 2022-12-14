@@ -15,12 +15,15 @@ namespace SportStoreMVVM
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            MainWindow mv = new MainWindow();
+            
+            LoginWindow lw = new LoginWindow();
+
+            //MainWindow mv = new MainWindow();
 
             //MainWindowViewModel vm = new MainWindowViewModel();
             //mv.DataContext = vm;
 
-            mv.Show();
+            lw.Show();
         }
 
     }

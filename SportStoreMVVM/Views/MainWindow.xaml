@@ -21,7 +21,7 @@
 
             <Border BorderBrush="Green" BorderThickness="3" Background="White">
                 <ListBox Name="lb" ItemsSource="{Binding Users}"
-                         DisplayMemberPath="Name"
+                         DisplayMemberPath="Login"
                          >
 
 

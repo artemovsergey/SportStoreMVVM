@@ -46,12 +46,12 @@ namespace SportStoreMVVM.ViewModels
 
         private void OnSaveUserCommandExecuted(object p)
         {
-            
+
             if (canUpdate == false)
             {
                 User user = new User();
-                user.Name = CurrentUser.Name;
-                user.Age = CurrentUser.Age;
+                user.Login = CurrentUser.Login;
+                user.Password = CurrentUser.Password;
                 Users.Add(user);
                 CountUser = Users.Count();
 
@@ -59,8 +59,8 @@ namespace SportStoreMVVM.ViewModels
             }
             else
             {
-                CurrentUser.Name = ((User)p).Name;
-                CurrentUser.Age = ((User)p).Age;
+                CurrentUser.Login = ((User)p).Login;
+                CurrentUser.Password = ((User)p).Password;
                 MessageBox.Show("Пользователь обновлен!");
             }
 
@@ -81,7 +81,7 @@ namespace SportStoreMVVM.ViewModels
             {
                 Users.Remove((User)p);
                 CountUser = Users.Count();
-                MessageBox.Show($"Пользователь {((User)p).Name} удален!");
+                MessageBox.Show($"Пользователь {((User)p).Login} удален!");
             }
             else
             {
@@ -150,10 +150,10 @@ namespace SportStoreMVVM.ViewModels
 
             Users = new ObservableCollection<User>();
 
-            Users.Add(new User() { Name = "user1", Age = 1 });
-            Users.Add(new User() { Name = "user2", Age = 2 });
-            Users.Add(new User() { Name = "user3", Age = 3 });
-            Users.Add(new User() { Name = "user4", Age = 4 });
+            Users.Add(new User() { Login = "user1", Password = "1" });
+            Users.Add(new User() { Login = "user2", Password = "2" });
+            Users.Add(new User() { Login = "user3", Password = "3" });
+            Users.Add(new User() { Login = "user4", Password = "4" });
 
             AddUserCommand = new LambdaCommand(OnAddUserCommandExecuted, CanAddUserCommandExecute);
 
