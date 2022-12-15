@@ -1,0 +1,249 @@
+﻿<Window x:Class="SportStoreMVVM.Views.ProductsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportStoreMVVM"
+        mc:Ignorable="d"
+        Title="Главное меню"
+        Height="720"
+        Width="1200"
+        MinHeight="710"
+        MinWidth="1100"
+        MaxHeight="720"
+        MaxWidth="1250"
+        Name="mainWindowApp"
+        Icon="/Resources/icon.ico"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+
+
+            </Grid.ColumnDefinitions>
+
+            <StackPanel 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Grid.Column="0">
+                <Image Source="/Resources/logo.png" Height="100" Width="150"/>
+            </StackPanel>
+
+
+            <StackPanel Margin="1" Grid.Column="1" VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <TextBlock Margin="1" Text="Сортировка" Height="20" />
+                <ComboBox Margin="1" Name="sortUserComboBox" Height="20" Width="150"
+                          
+                          
+                          />
+            </StackPanel>
+
+
+            <StackPanel Margin="1" Grid.Column="2" VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <TextBlock Margin="1" Text="Фильтр" Height="20" />
+                <ComboBox Margin="1" Name="filterUserComboBox" Height="20" Width="150"     
+                          />
+            </StackPanel>
+
+
+            <StackPanel Margin="1" Grid.Column="3" VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <TextBlock Margin="1" Text="Поиск" Height="20" Width="100"/>
+                <TextBox Margin="1" Name="searchBox" Width="100" Height="20"
+                          />
+            </StackPanel>
+
+
+
+            <StackPanel Margin="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Grid.Column="4">
+                <TextBlock Margin="1"
+                           TextAlignment="Center"
+                           Name="countProducts"
+                           Height="20" Width="150"
+                           Text="Количество: "/>
+
+                <Button Margin="1"
+                            Name="сlearButton"
+                        
+                            Width="100"
+                            Height="20"
+                            Content="Очистить"
+                            
+                             />
+            </StackPanel>
+
+            <StackPanel 
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Grid.Column="6">
+
+                <TextBlock Name="statusUser" Margin="1" Text="{Binding CurrentRole}" Height="20" Width="200" TextAlignment="Center"/>
+                <Button Margin="1" Content="Выход" Height="20" Width="100"
+                        Command="{Binding ExitCommand}"/>
+
+            </StackPanel>
+
+        </Grid>
+
+        <ListView Grid.Row ="1"
+	              x:Name="productlistView"
+	              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  HorizontalContentAlignment="Center"
+                  ItemsSource="{Binding Products}"
+                  >
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"
+                               HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Width="300">
+
+                        <TextBlock Text="{Binding Name, StringFormat=Название: {0}}"
+				                       VerticalAlignment="Center"
+				                       TextAlignment="Center"
+				                       TextWrapping="Wrap"
+				                       HorizontalAlignment="Center"
+				                       Margin="0"
+                                       FontSize="15"
+				                       />
+
+                        <Border BorderBrush="#FF498C51" BorderThickness="2">
+                            <Image 
+			                       HorizontalAlignment="Center"
+			                       Height="200"
+			                       Width="200"
+                                   ToolTip="{Binding Description}">
+
+                                <Image.Source>
+                                    <BitmapImage UriSource = "{Binding ImagePath,TargetNullValue=/Resources/picture.png}"
+                                                 CacheOption="OnLoad"
+                                                 CreateOptions="IgnoreImageCache"
+                                                 
+                                                 >
+                                    </BitmapImage>
+
+                                </Image.Source>
+                            </Image>
+                        </Border>
+
+
+                        <TextBlock Text="{Binding ArticleNumber, StringFormat=Артикль: {0}}"
+
+				                       Margin="5 5"
+                                       FontSize="15"
+                                       />
+                        <!--
+                            <TextBlock Text="{Binding Description, StringFormat=Описание: {0}}"
+				                       Margin="5 5"
+                                       FontSize="15"
+                                       />
+                         -->
+
+                        <TextBlock Text="{Binding Category, StringFormat=Категория: {0}}"
+				                       Margin="5 5"
+                                       FontSize="15"
+                                       />
+                        <TextBlock Text="{Binding Manufacturer, StringFormat=Производитель: {0}}"
+				                       Margin="5 5"
+                                       FontSize="15"
+                                       />
+                        <TextBlock Text="{Binding Cost, StringFormat=Стоимость: {0}}"
+				                       Margin="5 5"
+                                       FontSize="15"
+                                       />
+                        <TextBlock Text="{Binding DiscountAmount, StringFormat=Скидка: {0}%}"
+				                       Margin="5 5"
+                                       FontSize="15"
+                                      />
+                        <TextBlock Text="{Binding QuantityInStock, StringFormat=Количество на складе: {0}}"
+				                       Margin="5 5"
+                                       FontSize="15"
+                                       />
+                        <TextBlock Text="{Binding Status, StringFormat= Статус: {0}}"
+				                       Margin="5 5"
+                                       FontSize="15"
+                                      />
+                        <TextBlock Text="{Binding MaxDiscount, StringFormat= Максимальная скидка: {0}}"
+				                       Margin="5 5"
+                                       FontSize="15"
+                                       />
+                        <TextBlock Text="{Binding Supplier, StringFormat= Поставщик: {0}}"
+				                       Margin="5 5"
+                                       FontSize="15"
+                                       />
+                        <TextBlock Text="{Binding Unit, StringFormat= Ед.измерения: {0}}"
+				                       Margin="5 5"
+                                       FontSize="15"
+                                       />
+
+
+
+
+                    </StackPanel>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding QuantityInStock}" Value="0">
+                            <Setter Property="Background" Value="Gray" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+        </ListView>
+
+
+        <StackPanel Grid.Row="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        >
+
+                <Button Name="addProduct" Margin="5"
+                            Content="Добавить товар" Height="20" Width="100"
+                            />
+
+                <Button Name="deleteProduct" Margin="5"
+                            Content="Удалить товар" Height="20" Width="100"
+                            />
+
+            </StackPanel>
+
+        </StackPanel>
+
+    </Grid>
+</Window>
+

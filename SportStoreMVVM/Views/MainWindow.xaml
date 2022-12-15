@@ -18,7 +18,7 @@
         <StackPanel>
 
             <TextBlock Text="{Binding CountUser, StringFormat=Количество: {0}}"/>
-
+            <TextBlock Text="{Binding CurrentUser.Name, StringFormat=Пользователь: {0}, TargetNullValue=Здравствуйте\, гость}"/>
             <Border BorderBrush="Green" BorderThickness="3" Background="White">
                 <ListBox Name="lb" ItemsSource="{Binding Users}"
                          DisplayMemberPath="Login"
