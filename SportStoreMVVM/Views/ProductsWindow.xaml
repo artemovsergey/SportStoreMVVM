@@ -8,6 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         
         mc:Ignorable="d"
+        
         Title="Главное меню"
         Height="720"
         Width="1200"
@@ -57,11 +58,10 @@
                           Width="150"
                           SelectedIndex="{Binding SortSelectedIndex}"
                           SelectedValue="{Binding SortSelectedValue}"
+                          ItemsSource="{Binding SortSource}"
                           >
 
-                    <ComboBoxItem >По возрастанию цены</ComboBoxItem>
 
-                    <ComboBoxItem>По убыванию цены</ComboBoxItem>
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
@@ -79,7 +79,20 @@
                         HorizontalAlignment="Center">
                 <TextBlock Margin="1" Text="Фильтр" Height="20" />
                 <ComboBox Margin="1" Name="filterUserComboBox" Height="20" Width="150"     
-                          />
+                          SelectedIndex="{Binding FilterSelectedIndex}"
+                          SelectedValue="{Binding FilterSelectedValue}"
+                          ItemsSource="{Binding FilterSource}"
+                          >
+
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction
+                                        Command="{Binding UpdateProductCommand}"
+                                    />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+
+                </ComboBox>
             </StackPanel>
 
 
@@ -87,7 +100,20 @@
                         HorizontalAlignment="Center">
                 <TextBlock Margin="1" Text="Поиск" Height="20" Width="100"/>
                 <TextBox Margin="1" Name="searchBox" Width="100" Height="20"
-                          />
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                       
+                         >
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction
+                                        Command="{Binding UpdateProductCommand}"
+                                    />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+
+                </TextBox>
             </StackPanel>
 
 
@@ -100,7 +126,7 @@
                            TextAlignment="Center"
                            Name="countProducts"
                            Height="20" Width="150"
-                           Text="Количество: "/>
+                           Text="{Binding CountProducts}"/>
 
                 <Button Margin="1"
                             Name="сlearButton"
@@ -108,7 +134,7 @@
                             Width="100"
                             Height="20"
                             Content="Очистить"
-                            
+                            Command="{Binding ClearCommand}"
                              />
             </StackPanel>
 

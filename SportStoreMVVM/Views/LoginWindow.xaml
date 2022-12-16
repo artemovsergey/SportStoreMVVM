@@ -8,6 +8,7 @@
         xmlns:vm="clr-namespace:SportStoreMVVM.ViewModels"
         
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="Авторизация" Height="420" Width="400"
         Icon="/Resources/icon.ico">
 

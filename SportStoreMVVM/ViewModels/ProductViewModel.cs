@@ -45,6 +45,22 @@ namespace SportStoreMVVM.ViewModels
         }
         #endregion
 
+        #region Команда ClearCommand
+        public ICommand ClearCommand { get; set; }
+
+        private bool CanClearCommandExecute(object p)
+        {
+            return true;
+        }
+
+        private void OnClearCommandExecuted(object p)
+        {
+            FilterSelectedIndex = -1;
+            SortSelectedIndex= -1;
+            SearchText = "";
+        }
+        #endregion
+
         #region Команда UpdateProductCommand
         public ICommand UpdateProductCommand { get; set; }
 
@@ -67,7 +83,6 @@ namespace SportStoreMVVM.ViewModels
                     if (SortSelectedValue.Contains("По убыванию цены"))
                     {
                         CurrentProducts = CurrentProducts.OrderByDescending(u => u.Cost);
-                        MessageBox.Show("Работает!");
 
                     }
 
@@ -80,34 +95,33 @@ namespace SportStoreMVVM.ViewModels
 
 
                 // Фильтрация
-                //if (filterUserComboBox.SelectedIndex != -1)
-                //{
-                //    if (db.Products.Select(u => u.Manufacturer).Distinct().ToList().Contains(filterUserComboBox.SelectedValue))
-                //    {
-                //        currentProducts = currentProducts.Where(u => u.Manufacturer == filterUserComboBox.SelectedValue.ToString()).ToList();
-                //    }
-                //    else
-                //    {
-                //        currentProducts = currentProducts.ToList();
-                //    }
-                //}
+                if (FilterSelectedIndex != -1)
+                {
 
-                // Поиск
-
-                //if (searchBox.Text.Length > 0)
-                //{
-
-                //    currentProducts = currentProducts.Where(u => u.Name.Contains(searchBox.Text) || u.Description.Contains(searchBox.Text)).ToList();
-
-                //}
-
-                //productlistView.ItemsSource = currentProducts;
-
-                //countProducts.Text = $"Количество: {currentProducts.Count} из {db.Products.ToList().Count}";
+                    if (db.Products.Select(u => u.Manufacturer).Distinct().ToList().Contains(FilterSelectedValue))
+                    {
+                        CurrentProducts = CurrentProducts.Where(u => u.Manufacturer == FilterSelectedValue.ToString()).ToList();
+                    }
+                    else
+                    {
+                        CurrentProducts = CurrentProducts.ToList();
+                    }
                 }
+
+                //Поиск
+
+                if (SearchText != null)
+                {
+                    CurrentProducts = CurrentProducts.Where(u => u.Name.Contains(SearchText) || u.Description.Contains(SearchText)).ToList();
+
+                }
+
+                CountProducts = $"Количество: {CurrentProducts.Count()} из {db.Products.ToList().Count}";
+            }
             
             }
         #endregion
+
 
         #region Свойство Products
 
@@ -131,14 +145,45 @@ namespace SportStoreMVVM.ViewModels
         #endregion
 
         #region Свойство SortSelectedIndex
-
-        public int SortSelectedIndex { get; set; }
+        private int _sortSelectedIndex;
+        public int SortSelectedIndex
+        {
+            get => _sortSelectedIndex;
+            set => Set(ref _sortSelectedIndex, value);
+        }
         #endregion
 
         #region Свойство SortSelectedValue
 
         public string SortSelectedValue { get; set; }
         #endregion
+
+        #region Свойство SortSource
+
+        public List<string> SortSource { get; set; }
+        #endregion
+
+        #region Свойство FilterSelectedIndex
+   
+        private int _filterSelectedIndex;
+        public int FilterSelectedIndex
+        {
+            get => _filterSelectedIndex;
+            set => Set(ref _filterSelectedIndex, value);
+        }
+        #endregion
+
+        #region Свойство FilterSelectedValue
+
+        public string FilterSelectedValue { get; set; }
+        #endregion
+
+        #region Свойство FilterSource
+
+        public List<string> FilterSource { get; set; }
+        #endregion
+
+
 
         #region Свойство CurrentRole
         private string _currentRole;
@@ -154,6 +199,26 @@ namespace SportStoreMVVM.ViewModels
                 Set(ref _currentRole, value);
             }
 
+        }
+        #endregion
+
+        #region Свойство SearchText
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set => Set(ref _searchText, value);
+        }
+        #endregion
+
+        #region Свойство CountProducts
+
+        private string _countProducts;
+        public string CountProducts
+        {
+            get => _countProducts;
+            set => Set(ref _countProducts, value);
         }
         #endregion
 
@@ -180,11 +245,21 @@ namespace SportStoreMVVM.ViewModels
                 }
 
                 CurrentProducts = db.Products.ToList();
+
+                List<string> filterList = db.Products.Select(p => p.Manufacturer).Distinct().ToList();
+                filterList.Insert(0, "Все производители");
+                FilterSource = filterList;
+
+                SortSource = new List<string>() { "По возрастанию цены", "По убыванию цены" };
+
+
+                CountProducts = $"Количество: {CurrentProducts.Count()} из {db.Products.ToList().Count}";
             }
 
             ExitCommand = new LambdaCommand(OnExitCommandExecuted,CanExitCommandExecute);
-
             UpdateProductCommand = new LambdaCommand(OnUpdateProductCommandExecuted, CanUpdateProductCommandExecute);
+            ClearCommand = new LambdaCommand(OnClearCommandExecuted, CanClearCommandExecute);
+
         }
     }
 }
