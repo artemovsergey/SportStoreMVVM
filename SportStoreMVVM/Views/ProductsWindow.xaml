@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportStoreMVVM"
+        
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        
         mc:Ignorable="d"
         Title="Главное меню"
         Height="720"
@@ -48,10 +51,27 @@
             <StackPanel Margin="1" Grid.Column="1" VerticalAlignment="Center"
                         HorizontalAlignment="Center">
                 <TextBlock Margin="1" Text="Сортировка" Height="20" />
-                <ComboBox Margin="1" Name="sortUserComboBox" Height="20" Width="150"
-                          
-                          
-                          />
+                <ComboBox Margin="1"
+                          Name="sortUserComboBox"
+                          Height="20"
+                          Width="150"
+                          SelectedIndex="{Binding SortSelectedIndex}"
+                          SelectedValue="{Binding SortSelectedValue}"
+                          >
+
+                    <ComboBoxItem >По возрастанию цены</ComboBoxItem>
+
+                    <ComboBoxItem>По убыванию цены</ComboBoxItem>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction
+                                  Command="{Binding UpdateProductCommand}"
+                                />
+                         </i:EventTrigger>
+                     </i:Interaction.Triggers>
+
+                </ComboBox>
             </StackPanel>
 
 
@@ -109,7 +129,7 @@
 	              x:Name="productlistView"
 	              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   HorizontalContentAlignment="Center"
-                  ItemsSource="{Binding Products}"
+                  ItemsSource="{Binding CurrentProducts}"
                   >
 
             <ListView.ItemsPanel>
@@ -140,7 +160,7 @@
                                    ToolTip="{Binding Description}">
 
                                 <Image.Source>
-                                    <BitmapImage UriSource = "{Binding ImagePath,TargetNullValue=/Resources/picture.png}"
+                                    <BitmapImage UriSource = "{Binding ImagePath,TargetNullValue = /Resources/picture.png}"
                                                  CacheOption="OnLoad"
                                                  CreateOptions="IgnoreImageCache"
                                                  
