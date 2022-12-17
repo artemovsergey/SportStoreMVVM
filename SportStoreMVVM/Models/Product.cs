@@ -1,10 +1,13 @@
-﻿using System;
+﻿using SportStoreMVVM.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 
 namespace SportStoreMVVM.Models;
 
-public partial class Product
+public partial class Product : ViewModel
 {
     public int Id { get; set; }
 
@@ -32,6 +35,15 @@ public partial class Product
 
     public string Photo { get; set; } = null!;
 
+
+    /*
+     вы можете применить атрибут [NotMapped] к одному или нескольким свойствам,
+     для которых вы НЕ хотите создавать соответствующий столбец в таблице базы данных.
+     Этот атрибут применяется к EF 6 и EF core.
+    */
+
+    private string _imagePath;
+    [NotMapped]
     public virtual string? ImagePath
     {
 
@@ -39,13 +51,19 @@ public partial class Product
         {
             if (File.Exists(System.IO.Path.Combine(Environment.CurrentDirectory, $"images/{Photo}")))
             {
-                return System.IO.Path.Combine(Environment.CurrentDirectory, $"images/{Photo}");
+                _imagePath = System.IO.Path.Combine(Environment.CurrentDirectory, $"images/{Photo}");
+                return _imagePath;
             }
             else
             {
                 Photo = "picture.png";
                 return null;
             }
+        }
+
+        set
+        {
+            Set(ref _imagePath, value);
         }
 
     }

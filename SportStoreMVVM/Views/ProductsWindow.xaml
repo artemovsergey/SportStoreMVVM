@@ -279,7 +279,10 @@
                         >
 
                 <Button Name="addProduct" Margin="5"
-                            Content="Добавить товар" Height="20" Width="100"
+                        Content="Добавить товар"
+                        Height="20"
+                        Width="100"
+                        Command="{Binding AddProductCommand}"
                             />
 
                 <Button Name="deleteProduct" Margin="5"
