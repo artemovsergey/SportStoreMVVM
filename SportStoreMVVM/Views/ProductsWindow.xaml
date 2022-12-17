@@ -143,7 +143,7 @@
                         HorizontalAlignment="Center"
                         Grid.Column="6">
 
-                <TextBlock Name="statusUser" Margin="1" Text="{Binding CurrentRole}" Height="20" Width="200" TextAlignment="Center"/>
+                <TextBlock Name="statusUser" Margin="1" Text="{Binding CurrentRole}" Height="20" Width="250" TextAlignment="Center"/>
                 <Button Margin="1" Content="Выход" Height="20" Width="100"
                         Command="{Binding ExitCommand}"/>
 
@@ -156,6 +156,7 @@
 	              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   HorizontalContentAlignment="Center"
                   ItemsSource="{Binding CurrentProducts}"
+                  
                   >
 
             <ListView.ItemsPanel>
@@ -267,6 +268,15 @@
                 </Style>
             </ListView.ItemContainerStyle>
 
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction
+                        Command="{Binding EditProductCommand}"
+                        CommandParameter="{Binding ElementName=productlistView, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
         </ListView>
 
 
@@ -276,6 +286,7 @@
 
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center"
+                        Visibility="{Binding AdminPanelVisibility}"
                         >
 
                 <Button Name="addProduct" Margin="5"
@@ -285,8 +296,12 @@
                         Command="{Binding AddProductCommand}"
                             />
 
-                <Button Name="deleteProduct" Margin="5"
-                            Content="Удалить товар" Height="20" Width="100"
+                <Button Name="deleteProduct"
+                        Margin="5"
+                        Content="Удалить товар"
+                        Height="20" Width="100"
+                        Command="{Binding DeleteCommand}"
+                        CommandParameter="{Binding ElementName=productlistView, Path=SelectedItem}"
                             />
 
             </StackPanel>

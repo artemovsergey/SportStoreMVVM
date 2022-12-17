@@ -12,7 +12,7 @@
         MaxHeight="460"
         MaxWidth="810"
         
-        Title="Добавление/редактирование товара"
+        Title="{Binding Title}"
         Icon="/Resources/icon.ico"
         WindowStartupLocation="CenterScreen">
     <Grid>
@@ -24,7 +24,8 @@
                         HorizontalAlignment="Center"
                         Margin="10">
 
-                <StackPanel Name="idPanel">
+                <StackPanel Name="idPanel"
+                            Visibility="{Binding IdPanelVisibility}">
                     <TextBlock Margin="1"
                                Height="20"
                                Width="100"
@@ -33,7 +34,7 @@
                              Margin="1"
                              Height="20"
                              IsReadOnly="True"
-                             Text="{Binding Id}"/>
+                             Text="{Binding CurrentProduct.Id}"/>
 
                 </StackPanel>
 
@@ -53,7 +54,8 @@
                               Margin="1"
                               Height="20"
                               Width="100"
-                              SelectedValue="{Binding Category}"/>
+                              ItemsSource="{Binding Categories}"
+                              SelectedValue="{Binding CurrentProduct.Category}"/>
                 </StackPanel>
 
                 <StackPanel>
@@ -63,7 +65,7 @@
                     <TextBox Name="manufacturerBox"
                              Margin="1"
                              Height="20"
-                             Text="{Binding Manufacturer}"/>
+                             Text="{Binding CurrentProduct.Manufacturer}"/>
                 </StackPanel>
 
                 <StackPanel>
@@ -91,7 +93,7 @@
                                 Height="20"
                                 Text="Скидка"/>
                     <TextBox Name="discountAmountBox" Margin="1" Height="20"
-                         Text="{Binding DiscountAmount}"/>
+                         Text="{Binding CurrentProduct.DiscountAmount}"/>
 
 
                 </StackPanel>
@@ -112,7 +114,7 @@
                     <TextBox Name="articleBox"
                              Margin="1"
                              Height="20"
-                             Text="{Binding ArticleNumber}"/>
+                             Text="{Binding CurrentProduct.ArticleNumber}"/>
                 </StackPanel>
 
 
@@ -121,7 +123,7 @@
                                 Height="20"
                                 Text="Поставщик"/>
                     <TextBox Name="supplierBox" Margin="1" Height="20" Width="100"
-                         Text="{Binding Supplier}"/>
+                         Text="{Binding CurrentProduct.Supplier}"/>
                 </StackPanel>
 
                 <StackPanel>
@@ -129,7 +131,7 @@
                                 Height="20"
                                 Text="Ед.измерения"/>
                     <TextBox Name="unitBox" Margin="1" Height="20" Width="100"
-                         Text="{Binding Unit}"/>
+                         Text="{Binding CurrentProduct.Unit}"/>
                 </StackPanel>
 
                 <StackPanel>
@@ -155,7 +157,7 @@
                                 Height="20"
                                 Text="Статус"/>
                     <TextBox Name="statusBox" Margin="1" Height="20"
-                         Text="{Binding Status}"/>
+                         Text="{Binding CurrentProduct.Status}"/>
                 </StackPanel>
 
                 <StackPanel>
@@ -163,7 +165,7 @@
                                 Height="20"
                                 Text="Макс.скидка"/>
                     <TextBox Name="maxDiscountBox" Margin="1" Height="20"
-                         Text="{Binding MaxDiscount}"/>
+                         Text="{Binding CurrentProduct.MaxDiscount}"/>
                 </StackPanel>
 
             </StackPanel>
@@ -181,12 +183,12 @@
                              Height="200"
                              Width="150"
                              TextWrapping="Wrap"
-                             Text="{Binding Description}"
+                             Text="{Binding CurrentProduct.Description}"
                         />
                     <Button Margin="0 10 0 0"
                         Height="20"
                         Content="Сохранить"
-                        Command="{Binding SaveProduct}"
+                        Command="{Binding SaveProductCommand}"
                         />
                 </StackPanel>
             </StackPanel>
@@ -202,7 +204,7 @@
                          Height="20"
                          IsReadOnly="True"
                          Visibility="Collapsed"
-                         Text="{Binding Photo}"/>
+                         Text="{Binding CurrentProduct.Photo}"/>
 
                 <Border Margin="1"
                         Height="200"

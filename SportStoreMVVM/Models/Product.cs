@@ -9,7 +9,7 @@ namespace SportStoreMVVM.Models;
 
 public partial class Product : ViewModel
 {
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     public string? ArticleNumber { get; set; }
 
