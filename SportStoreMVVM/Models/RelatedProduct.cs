@@ -9,9 +9,12 @@ public partial class RelatedProduct
 
     public int ProductId { get; set; }
 
-    public int RelatedProdutId { get; set; }
+    public int RelatedProductId { get; set; }
 
+
+
+    public virtual Product RelatedProductNav { get; set; } = null!;
     public virtual Product Product { get; set; } = null!;
 
-    public virtual Product RelatedProdut { get; set; } = null!;
+    
 }

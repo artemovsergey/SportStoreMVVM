@@ -73,7 +73,7 @@ public partial class Product : ViewModel
 
     public virtual ICollection<OrderProduct> OrderProducts { get; } = new List<OrderProduct>();
 
-    public virtual ICollection<RelatedProduct> RelatedProductProducts { get; } = new List<RelatedProduct>();
+    public virtual ICollection<RelatedProduct> RelatedProducts { get; } = new List<RelatedProduct>();
 
-    public virtual ICollection<RelatedProduct> RelatedProductRelatedProduts { get; } = new List<RelatedProduct>();
+    public virtual ICollection<RelatedProduct> RelatedProductsNav { get; } = new List<RelatedProduct>();
 }

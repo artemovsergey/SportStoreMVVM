@@ -678,10 +678,10 @@ namespace SportStoreMVVM.ViewModels
                 // найдем, существуют ли товарные позиции из нашего списка связанных товаров и самого товара в заказах
                 foreach (RelatedProduct r in rp)
                 {
-                    OrderProduct order = db.OrderProducts.Where(o => o.ProductId == r.RelatedProdutId).FirstOrDefault() as OrderProduct;
+                    OrderProduct order = db.OrderProducts.Where(o => o.ProductId == r.RelatedProductId).FirstOrDefault() as OrderProduct;
                     if (order is not null)
                     {
-                        Product p = db.Products.Where(p => p.Id == r.RelatedProdutId).FirstOrDefault() as Product;
+                        Product p = db.Products.Where(p => p.Id == r.RelatedProductId).FirstOrDefault() as Product;
                         MessageBox.Show($"Товар {p.Name} связан с товаром {product.Name} присутствует в товарной позиции заказа {order.OrderId}. \n Товары нельзя удалить!");
                         return false;
                     }

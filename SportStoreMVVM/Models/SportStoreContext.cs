@@ -78,7 +78,7 @@ public partial class SportStoreContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__tmp_ms_x__3214EC07964CE01F");
 
-            entity.ToTable("Product");
+            entity.ToTable("Products");
 
             entity.HasIndex(e => e.ArticleNumber, "UQ__tmp_ms_x__3C991142F21C18D1").IsUnique();
 
@@ -91,21 +91,30 @@ public partial class SportStoreContext : DbContext
 
         modelBuilder.Entity<RelatedProduct>(entity =>
         {
-            entity.HasOne(d => d.Product).WithMany(p => p.RelatedProductProducts)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__RelatedProducts__ProductId__571DF1D5");
 
-            entity.HasOne(d => d.RelatedProdut).WithMany(p => p.RelatedProductRelatedProduts)
-                .HasForeignKey(d => d.RelatedProdutId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__RelatedProducts__RelatedProdutId__571DF1D5");
+            entity.HasKey(e => e.Id).HasName("PK_RelatedProducts");
+
+            entity.ToTable("RelatedProducts");
+
+            // Product - навигационное свойство, RelatedProducts - виртуальная коллекция
+            entity.HasOne(d => d.Product).WithMany(p => p.RelatedProducts)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK__RelatedProducts__ProductId__571DF1D5");
+
+            entity.HasOne(d => d.RelatedProductNav).WithMany(p => p.RelatedProductsNav)
+                  .HasForeignKey(d => d.RelatedProductId)
+                  .OnDelete(DeleteBehavior.Cascade)
+                  .HasConstraintName("FK__RelatedProducts__RelatedProductId__571DF1D5");
+
+
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Role__3214EC07666C2878");
 
-            entity.ToTable("Role");
+            entity.ToTable("Roles");
 
             entity.Property(e => e.Name).HasMaxLength(100);
         });
@@ -114,14 +123,13 @@ public partial class SportStoreContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK__User__3214EC07126C1837");
 
-            entity.ToTable("User");
+            entity.ToTable("Users");
 
             entity.Property(e => e.Name).HasMaxLength(100);
             entity.Property(e => e.Patronymic).HasMaxLength(100);
             entity.Property(e => e.Surname).HasMaxLength(100);
-
             entity.HasOne(d => d.RoleNavigation).WithMany(p => p.Users)
-                .HasForeignKey(d => d.Role)
+                .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__User__Role__267ABA7A");
         });

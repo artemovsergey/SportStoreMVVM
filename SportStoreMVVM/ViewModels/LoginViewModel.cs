@@ -46,7 +46,7 @@ namespace SportStoreMVVM.ViewModels
 
             using(SportStoreContext db = new SportStoreContext())
             {
-                 User user = db.Users.Where(u => u.Login == CurrentUser.Login && u.Password == ((PasswordBox)p).Password).Include(u => u.RoleNavigation).FirstOrDefault() as User;
+                 User? user = db.Users.Where(u => u.Login == CurrentUser.Login && u.Password == ((PasswordBox)p).Password).Include(u => u.RoleNavigation).FirstOrDefault();
            
                 //if (CurrentUser.Login == "admin" && ((PasswordBox)p).Password == "admin" && verify)
                 if(user != null)

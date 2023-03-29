@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using SportStoreMVVM.ViewModels;
 using SportStoreMVVM.Views;
 
 namespace SportStoreMVVM
@@ -20,8 +21,8 @@ namespace SportStoreMVVM
 
             //MainWindow mv = new MainWindow();
 
-            //MainWindowViewModel vm = new MainWindowViewModel();
-            //mv.DataContext = vm;
+            LoginViewModel vm = new LoginViewModel();
+            lw.DataContext = vm;
 
             lw.Show();
         }
